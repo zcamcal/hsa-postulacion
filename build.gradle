@@ -1,0 +1,42 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.3'
+	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'java'
+}
+
+group = 'com.accenture'
+version = '0.3.1'
+sourceCompatibility = '17'
+
+jar {
+    enabled = true
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext['log4j2.version'] = '2.18.0'
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
